@@ -16,7 +16,7 @@ Easy bindings for events from Unity uGui to [ECS framework](https://github.com/L
 ## As unity module
 This repository can be installed as unity module directly from git url. In this way new line should be added to `Packages/manifest.json`:
 ```
-"com.leopotam.ecs-ui": "https://github.com/Leopotam/ecs-ui.git#classes-based",
+"com.leopotam.ecs-ui": "https://github.com/Leopotam/ecs-ui.git",
 ```
 
 ## As source
