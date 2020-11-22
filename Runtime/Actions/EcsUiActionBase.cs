@@ -70,7 +70,7 @@ namespace Leopotam.Ecs.Ui.Actions {
         }
 
         protected bool IsValidForEvent () {
-            return (object) Emitter != null && (_selectable == null || _selectable.interactable);
+            return Emitter && Emitter.World.IsAlive () && (_selectable == null || _selectable.interactable);
         }
 
         /// <summary>
