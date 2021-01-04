@@ -18,6 +18,13 @@ namespace Leopotam.Ecs.Ui.Systems {
         readonly Dictionary<int, GameObject> _actions = new Dictionary<int, GameObject> (64);
 
         /// <summary>
+        /// Gets attached after InjectUi() call world instance.
+        /// </summary>
+        public EcsWorld GetWorld () {
+            return World;
+        }
+
+        /// <summary>
         /// Creates ecs entity for message.
         /// </summary>
         public EcsEntity CreateEntity () {
