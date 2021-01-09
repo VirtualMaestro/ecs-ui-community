@@ -33,7 +33,7 @@ namespace Leopotam.Ecs.Ui.Systems {
         public static EcsSystems InjectUi (this EcsSystems ecsSystems, EcsUiEmitter emitter, bool skipNoExists = false, bool skipOneFrames = false) {
             if (!skipOneFrames) { InjectOneFrames (ecsSystems); }
             ecsSystems.Inject (emitter);
-            emitter.World = ecsSystems.World;
+            emitter.SetWorld (ecsSystems.World);
             var uiNamedType = typeof (EcsUiNamedAttribute);
             var goType = typeof (GameObject);
             var componentType = typeof (Component);
