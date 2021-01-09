@@ -12,7 +12,13 @@ namespace Leopotam.Ecs.Ui.Systems {
     /// Proxy Emitter for redirect calls to root one.
     /// </summary>
     public class EcsUiProxyEmitter : EcsUiEmitter {
+        public enum SearchType {
+            InGlobal,
+            InHierarchy
+        }
+
         [SerializeField] EcsUiEmitter _parent;
+        [SerializeField] SearchType _searchType = SearchType.InGlobal;
 
         public override EcsWorld GetWorld () {
             return ValidateEmitter () ? _parent.GetWorld () : default;
@@ -44,12 +50,18 @@ namespace Leopotam.Ecs.Ui.Systems {
             // parent was killed.
             if ((object) _parent != null) { return false; }
 
-            _parent = GetComponentInParent<EcsUiEmitter> ();
+            var parent = _searchType == SearchType.InGlobal
+                ? FindObjectOfType<EcsUiEmitter> ()
+                : GetComponentInParent<EcsUiEmitter> ();
+            // fix for GetComponentInParent.
+            if (parent == this) { parent = null; }
 #if DEBUG
-            if (_parent == null) {
+            if (parent == null) {
                 Debug.LogError ("EcsUiEmitter not found in hierarchy", this);
+                return false;
             }
 #endif
+            _parent = parent;
             return true;
         }
     }
