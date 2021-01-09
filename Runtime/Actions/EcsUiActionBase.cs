@@ -54,6 +54,9 @@ namespace Leopotam.Ecs.Ui.Actions {
         void ValidateEmitter () {
             if (Emitter == null) {
                 Emitter = GetComponentInParent<EcsUiEmitter> ();
+				
+			if (Emitter == null)
+				Emitter = FindObjectOfType<EcsUiEmitter>();
             }
 #if DEBUG
             if (Emitter == null) {
