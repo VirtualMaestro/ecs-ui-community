@@ -2,7 +2,7 @@
 // The MIT License
 // Ui extension https://github.com/Leopotam/ecs-ui
 // for ECS framework https://github.com/Leopotam/ecs
-// Copyright (c) 2017-2020 Leopotam <leopotam@gmail.com>
+// Copyright (c) 2017-2021 Leopotam <leopotam@gmail.com>
 // ----------------------------------------------------------------------------
 
 using System;
@@ -29,10 +29,11 @@ namespace Leopotam.Ecs.Ui.Systems {
         /// <param name="ecsSystems">EcsSystems group.</param>
         /// <param name="emitter">EcsUiEmitter instance.</param>
         /// <param name="skipNoExists">Not throw exception if named action not registered in emitter.</param>
-        public static EcsSystems InjectUi (this EcsSystems ecsSystems, EcsUiEmitter emitter, bool skipNoExists = false) {
-            InjectOneFrames (ecsSystems);
+        /// <param name="skipOneFrames">Skip OneFrame-event cleanup registration.</param>
+        public static EcsSystems InjectUi (this EcsSystems ecsSystems, EcsUiEmitter emitter, bool skipNoExists = false, bool skipOneFrames = false) {
+            if (!skipOneFrames) { InjectOneFrames (ecsSystems); }
             ecsSystems.Inject (emitter);
-            emitter.World = ecsSystems.World;
+            emitter.SetWorld (ecsSystems.World);
             var uiNamedType = typeof (EcsUiNamedAttribute);
             var goType = typeof (GameObject);
             var componentType = typeof (Component);
